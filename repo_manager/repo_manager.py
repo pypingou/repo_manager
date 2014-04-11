@@ -1,4 +1,18 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+# repo_manager - a python module to interact with RPMs repository
+#
+# Copyright (C) 2014 Red Hat Inc
+# Author: Pierre-Yves Chibon <pingou@pingoured.fr>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or (at
+# your option) any later version.
+# See http://www.gnu.org/copyleft/gpl.html  for the full text of the
+# license.
+"""
 
 import rpm
 import os
