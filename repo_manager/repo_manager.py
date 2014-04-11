@@ -14,17 +14,22 @@
 # license.
 """
 
+import logging
 import rpm
 import os
 
 TS = rpm.ts()
 TS.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
 
+logging.basicConfig()
+LOG = logging.getLogger("repo_manager")
+
 
 def get_rpm_headers(rpmfile):
     ''' Open an rpm file and returns the dict containing all its headers
     information.
     '''
+    LOG.debug('get_rpm_headers')
     fd = os.open(rpmfile, os.O_RDONLY)
     headers = TS.hdrFromFdno(fd)
     os.close(fd)
@@ -34,6 +39,9 @@ def get_rpm_headers(rpmfile):
 def get_rpm_tag(rpmfile, tag):
     ''' Return the specified tags from the headers of the specified rpm tag.
     '''
+    LOG.debug('get_rpm_tag')
+    LOG.debug('rpmfile :  {0}', rpmfile)
+    LOG.debug('tag     :  {0}', tag)
     return get_rpm_headers(rpmfile)[tag]
 
 
@@ -63,6 +71,7 @@ def get_duplicated_rpms(folder):
     ''' Browse all the files in a folder and find out which are RPMs and
     return the RPMs of an application present multiple time.
     '''
+    LOG.debug('get_duplicated_rpms')
     folder = os.path.expanduser(folder)
 
     seen = {}
@@ -93,6 +102,7 @@ def get_duplicated_rpms(folder):
 def clean_repo(folder, keep=3, srpm=False, dry_run=False):
     ''' Remove duplicates from a given folder.
     '''
+    LOG.debug('clean_repo')
     folder = os.path.expanduser(folder)
 
     before = len(os.listdir(folder))
@@ -108,6 +118,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False):
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
+                    LOG.debug('Remove file {0}', filename)
                     os.unlink(filename)
 
 
@@ -120,6 +131,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False):
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
+                    LOG.debug('Remove file {0}', filename)
                     os.unlink(filename)
 
     print folder
@@ -133,6 +145,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False):
 def info_repo(folder, keep=3):
     ''' Returns some info/stats about the specified repo.
     '''
+    LOG.debug('info_repo')
     folder = os.path.expanduser(folder)
 
     print folder
