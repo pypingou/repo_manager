@@ -17,6 +17,7 @@
 import logging
 import rpm
 import os
+import shutil
 
 TS = rpm.ts()
 TS.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
@@ -170,3 +171,25 @@ def info_repo(folder, keep=3):
                 cnt += 1
 
     print '  %s SRPMs/RPMs could be removed' % cnt
+
+
+def add_rpm(rpm, folder):
+    ''' Copy the provided RPM into the specified folder.
+    '''
+    LOG.debug('add_rpm')
+    rpm = os.path.expanduser(rpm)
+    folder = os.path.expanduser(folder)
+
+    # Check input
+    ## TODO: check rpm is really a rpm
+
+    # Check destination
+    if not os.path.exists(folder):
+        print 'Folder "%s" does not exist' % folder
+        return
+    elif not os.path.isdir(folder):
+        print '"%s" is not a folder' % folder
+        return
+
+    LOG.debug('Moving file "%", into folder "%s"', rpm, folder)
+    shutil.copy(rpm, folder)
