@@ -90,6 +90,37 @@ def get_duplicated_rpms(folder):
     return dups
 
 
+def clean_repo(folder, keep=3, srpm=False):
+    ''' Remove duplicates from a given folder.
+    '''
+    folder = os.path.expanduser(folder)
+
+    before = len(os.listdir(folder))
+    dups = get_duplicated_rpms(folder)
+    cnt = 0
+    for dup in sorted(dups):
+        versions = [rpmfile['version'] for rpmfile in sorted(dups[dup])]
+        keep_versions = versions[-keep:]
+        for rpmfile in sorted(dups[dup]):
+            if rpmfile['version'] not in keep_versions:
+                cnt += 1
+                os.unlink(os.path.join(folder, rpmfile['filename']))
+
+    srpm_cnt = 0
+    if srpm:
+        for rpmfile in os.listdir(folder):
+            if rpmfile.endswith('.src.rpm'):
+                srpm_cnt += 1
+                os.unlink(os.path.join(folder, rpmfile))
+
+    print folder
+    print '  %s files before' % before
+    print '  %s RPMs removed' % cnt
+    if srpm:
+        print '  %s source RPMs removed' % srpm_cnt
+    print '  %s files after' % len(os.listdir(folder))
+
+
 def info_repo(folder, keep=3):
     ''' Returns some info/stats about the specified repo.
     '''
