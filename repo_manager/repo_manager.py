@@ -40,8 +40,8 @@ def get_rpm_tag(rpmfile, tag):
     ''' Return the specified tags from the headers of the specified rpm tag.
     '''
     LOG.debug('get_rpm_tag')
-    LOG.debug('rpmfile :  {0}', rpmfile)
-    LOG.debug('tag     :  {0}', tag)
+    LOG.debug('rpmfile :  %s', rpmfile)
+    LOG.debug('tag     :  %s', tag)
     return get_rpm_headers(rpmfile)[tag]
 
 
@@ -131,7 +131,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False):
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
-                    LOG.debug('Remove file {0}', filename)
+                    LOG.debug('Remove file %s', filename)
                     os.unlink(filename)
 
     print folder
