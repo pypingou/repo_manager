@@ -44,6 +44,22 @@ def do_add(args):
     LOG.info("config  : {0}".format(args.configfile))
 
 
+def do_clean(args):
+    ''' Clean a rpm repository from its duplicates. '''
+    LOG.info("Clean")
+    LOG.info("repos      : {0}".format(args.repos))
+    LOG.info("keep       : {0}".format(args.keep))
+    LOG.info("clean_srpm : {0}".format(args.clean_srpm))
+    LOG.info("dry_run    : {0}".format(args.dry_run))
+    LOG.info("config     : {0}".format(args.configfile))
+    for repo in args.repos:
+        repo_manager.clean_repo(
+            repo,
+            keep=args.keep,
+            srpm=args.clean_srpm,
+            dry_run=args.dry_run)
+
+
 def setup_parser():
     '''
     Set the main arguments.
@@ -89,6 +105,25 @@ def setup_parser():
         '--repo', default=None, nargs="?",
         help="Repository to add the RPMs to")
     parser_acl.set_defaults(func=do_add)
+
+    ## CLEAN
+    parser_acl = subparsers.add_parser(
+        'clean',
+        help='Remove duplicates in the specified, or default, repo')
+    parser_acl.add_argument(
+        'repos', default=None, nargs="*",
+        help="Repositories to clean")
+    parser_acl.add_argument(
+        '--keep', default=3,
+        help="Number of RPMs of an application to keep")
+    parser_acl.add_argument(
+        '--clean-srpm', default=False, action='store_true',
+        help="Clean source rpm from this repository")
+    parser_acl.add_argument(
+        '--dry-run', default=False, action='store_true',
+        help="Does a dry-run, does not delete anything but outputs what it "
+        "would do.")
+    parser_acl.set_defaults(func=do_clean)
 
     return parser
 
