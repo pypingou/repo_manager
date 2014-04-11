@@ -90,7 +90,7 @@ def get_duplicated_rpms(folder):
     return dups
 
 
-def clean_repo(folder, keep=3, srpm=False):
+def clean_repo(folder, keep=3, srpm=False, dry_run=False):
     ''' Remove duplicates from a given folder.
     '''
     folder = os.path.expanduser(folder)
@@ -104,14 +104,29 @@ def clean_repo(folder, keep=3, srpm=False):
         for rpmfile in sorted(dups[dup]):
             if rpmfile['version'] not in keep_versions:
                 cnt += 1
-                os.unlink(os.path.join(folder, rpmfile['filename']))
+                if dry_run:
+                    print(
+                        'Remove file {0}'.format(
+                            os.path.join(folder, rpmfile['filename'])
+                        )
+                    )
+                else:
+                    os.unlink(os.path.join(folder, rpmfile['filename']))
+
 
     srpm_cnt = 0
     if srpm:
         for rpmfile in os.listdir(folder):
             if rpmfile.endswith('.src.rpm'):
                 srpm_cnt += 1
-                os.unlink(os.path.join(folder, rpmfile))
+                if dry_run:
+                    print(
+                        'Remove file {0}'.format(
+                            os.path.join(folder, rpmfile)
+                        )
+                    )
+                else:
+                    os.unlink(os.path.join(folder, rpmfile))
 
     print folder
     print '  %s files before' % before
