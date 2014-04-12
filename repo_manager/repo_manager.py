@@ -191,7 +191,7 @@ def add_rpm(rpm, folder):
         print '"%s" is not a folder' % folder
         return
 
-    LOG.debug('Moving file "%", into folder "%s"', rpm, folder)
+    LOG.debug('Moving file "%s", into folder "%s"', rpm, folder)
     shutil.copy(rpm, folder)
 
 
