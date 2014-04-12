@@ -193,3 +193,25 @@ def add_rpm(rpm, folder):
 
     LOG.debug('Moving file "%", into folder "%s"', rpm, folder)
     shutil.copy(rpm, folder)
+
+
+def delete_rpm(rpm, folder):
+    ''' Delete the specified RPM of the specified folder.
+    '''
+    LOG.debug('delete_rpm')
+    rpm = os.path.expanduser(rpm)
+    folder = os.path.expanduser(folder)
+
+    # Check input
+    path = os.path.join(folder, rpm)
+    if not os.path.exists(path):
+        print 'File "%s" cannot be found' % path
+        return
+    if os.path.isdir(path):
+        print '"%s" points to a directory' % path
+        return
+
+    ## TODO: check rpm is really a rpm
+
+    LOG.debug('Deleting file "%s"', path)
+    os.unlink(path)
