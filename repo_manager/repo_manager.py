@@ -190,7 +190,9 @@ def add_rpm(rpm, folder):
     folder = os.path.expanduser(folder)
 
     # Check input
-    ## TODO: check rpm is really a rpm
+    if not is_rpm(path):
+        print '"%s" does not point to a RPM file' % path
+        return
 
     # Check destination
     if not os.path.exists(folder):
