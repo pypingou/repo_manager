@@ -220,7 +220,9 @@ def delete_rpm(rpm, folder):
         print '"%s" points to a directory' % path
         return
 
-    ## TODO: check rpm is really a rpm
+    if not is_rpm(path):
+        print '"%s" does not point to a RPM file' % path
+        return
 
     LOG.debug('Deleting file "%s"', path)
     os.unlink(path)
