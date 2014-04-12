@@ -215,3 +215,20 @@ def delete_rpm(rpm, folder):
 
     LOG.debug('Deleting file "%s"', path)
     os.unlink(path)
+
+
+def replace_rpm(rpm, folder):
+    ''' Replace an RPM in a repository, this means replacing an existing
+    RPM of the repository by one being exactly the same (same name, version
+    and release).
+    '''
+    LOG.debug('replace_rpm')
+    rpm = os.path.expanduser(rpm)
+    folder = os.path.expanduser(folder)
+
+    rpmfile = rpm
+    if '/' in rpm:
+        rpmfile = rpm.rsplit('/', 1)[1]
+
+    delete_rpm(rpmfile, folder)
+    add_rpm(rpm, folder)
