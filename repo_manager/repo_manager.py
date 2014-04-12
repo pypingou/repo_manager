@@ -231,4 +231,5 @@ def replace_rpm(rpm, folder):
         rpmfile = rpm.rsplit('/', 1)[1]
 
     delete_rpm(rpmfile, folder)
+    ## TODO: run createrepo
     add_rpm(rpm, folder)
