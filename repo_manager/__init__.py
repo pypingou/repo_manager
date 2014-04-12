@@ -42,6 +42,8 @@ def do_add(args):
     LOG.info("rpms    : {0}".format(args.rpms))
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
+    for rpm in args.rpms:
+        repo_manager.add_rpm(rpm, args.repo)
 
 
 def do_clean(args):
