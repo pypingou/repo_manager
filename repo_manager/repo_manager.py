@@ -26,6 +26,15 @@ logging.basicConfig()
 LOG = logging.getLogger("repo_manager")
 
 
+def is_rpm(rpmfile):
+    ''' Check if the provided rpm is indeed one.
+    '''
+    stream = open(rpmfile, 'rb')
+    start = stream.read(4)
+    stream.close()
+    return start == '\xed\xab\xee\xdb'
+
+
 def get_rpm_headers(rpmfile):
     ''' Open an rpm file and returns the dict containing all its headers
     information.
