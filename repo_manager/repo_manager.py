@@ -97,6 +97,9 @@ def get_duplicated_rpms(folder):
         name = get_rpm_name(filename)
         version = get_rpm_version_release(filename)
 
+        if not name or not version:
+            continue
+
         if name in seen:
             seen[name].append(
                 {'version': version, 'filename': filename}
