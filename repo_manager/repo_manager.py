@@ -39,6 +39,8 @@ def get_rpm_headers(rpmfile):
     ''' Open an rpm file and returns the dict containing all its headers
     information.
     '''
+    if not is_rpm(rpmfile):
+        return
     LOG.debug('get_rpm_headers')
     fd = os.open(rpmfile, os.O_RDONLY)
     headers = TS.hdrFromFdno(fd)
@@ -52,7 +54,9 @@ def get_rpm_tag(rpmfile, tag):
     LOG.debug('get_rpm_tag')
     LOG.debug('rpmfile :  %s', rpmfile)
     LOG.debug('tag     :  %s', tag)
-    return get_rpm_headers(rpmfile)[tag]
+    headers = get_rpm_headers(rpmfile)
+    if headers:
+        return headers[tag]
 
 
 def get_rpm_name(rpmfile):
