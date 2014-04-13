@@ -18,6 +18,7 @@ import logging
 import rpm
 import os
 import shutil
+import subprocess
 
 TS = rpm.ts()
 TS.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
@@ -253,3 +254,13 @@ def replace_rpm(rpm, folder):
     delete_rpm(rpmfile, folder)
     ## TODO: run createrepo
     add_rpm(rpm, folder)
+
+
+def run_createrepo(folder):
+    ''' Run the ``createrepo`` command in the specified folder.
+    '''
+    cur_wd = os.getcwd()
+    os.chdir(folder)
+    cmd = ['createrepo', '.']
+    subprocess.call(cmd, shell=True)
+    os.chdir(cur_wd)
