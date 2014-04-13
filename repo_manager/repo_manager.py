@@ -238,7 +238,7 @@ def delete_rpm(rpm, folder):
     os.unlink(path)
 
 
-def replace_rpm(rpm, folder):
+def replace_rpm(rpm, folder, no_createrepo=False):
     ''' Replace an RPM in a repository, this means replacing an existing
     RPM of the repository by one being exactly the same (same name, version
     and release).
@@ -252,8 +252,11 @@ def replace_rpm(rpm, folder):
         rpmfile = rpm.rsplit('/', 1)[1]
 
     delete_rpm(rpmfile, folder)
-    ## TODO: run createrepo
+    if not no_createrepo:
+        run_createrepo(folder)
     add_rpm(rpm, folder)
+    if not no_createrepo:
+        run_createrepo(folder)
 
 
 def run_createrepo(folder):
