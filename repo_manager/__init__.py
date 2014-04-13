@@ -62,6 +62,16 @@ def do_clean(args):
             dry_run=args.dry_run)
 
 
+def do_delete(args):
+    ''' Delete a rpm from a repository. '''
+    LOG.info("Delete")
+    LOG.info("rpms    : {0}".format(args.rpms))
+    LOG.info("repo    : {0}".format(args.repo))
+    LOG.info("config  : {0}".format(args.configfile))
+    for rpm in args.rpms:
+        repo_manager.delete_rpm(rpm, args.repo)
+
+
 def setup_parser():
     '''
     Set the main arguments.
@@ -126,6 +136,18 @@ def setup_parser():
         help="Does a dry-run, does not delete anything but outputs what it "
         "would do.")
     parser_acl.set_defaults(func=do_clean)
+
+    ## DELETE
+    parser_acl = subparsers.add_parser(
+        'delete',
+        help='delete one or more RPMs into a repository')
+    parser_acl.add_argument(
+        'rpms', default=None, nargs="+",
+        help="RPMs to delete")
+    parser_acl.add_argument(
+        '--repo', default=None, nargs="?",
+        help="Repository to delete the RPMs from")
+    parser_acl.set_defaults(func=do_delete)
 
     return parser
 
