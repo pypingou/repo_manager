@@ -72,6 +72,16 @@ def do_delete(args):
         repo_manager.delete_rpm(rpm, args.repo)
 
 
+def do_replace(args):
+    ''' Repleace a rpm of a repository. '''
+    LOG.info("Repleace")
+    LOG.info("rpms    : {0}".format(args.rpms))
+    LOG.info("repo    : {0}".format(args.repo))
+    LOG.info("config  : {0}".format(args.configfile))
+    for rpm in args.rpms:
+        repo_manager.replace_rpm(rpm, args.repo)
+
+
 def setup_parser():
     '''
     Set the main arguments.
@@ -148,6 +158,18 @@ def setup_parser():
         '--repo', default=None, nargs="?",
         help="Repository to delete the RPMs from")
     parser_acl.set_defaults(func=do_delete)
+
+    ## REPLACE
+    parser_acl = subparsers.add_parser(
+        'replace',
+        help='Replace one or more RPMs in a repository')
+    parser_acl.add_argument(
+        'rpms', default=None, nargs="+",
+        help="RPMs to replace")
+    parser_acl.add_argument(
+        '--repo', default=None, nargs="?",
+        help="Repository to replace the RPMs of")
+    parser_acl.set_defaults(func=do_replace)
 
     return parser
 
