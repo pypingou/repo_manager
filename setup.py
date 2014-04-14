@@ -3,7 +3,7 @@
 Setup script
 """
 
-from distutils.core import setup
+from setuptools import setup
 from repo_manager import __version__
 
 setup(
