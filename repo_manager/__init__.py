@@ -42,6 +42,7 @@ def do_add(args):
     LOG.info("rpms    : {0}".format(args.rpms))
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
+    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
         repo_manager.add_rpm(rpm, args.repo)
 
@@ -54,6 +55,7 @@ def do_clean(args):
     LOG.info("clean_srpm : {0}".format(args.clean_srpm))
     LOG.info("dry_run    : {0}".format(args.dry_run))
     LOG.info("config     : {0}".format(args.configfile))
+    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for repo in args.repos:
         repo_manager.clean_repo(
             repo,
@@ -68,6 +70,7 @@ def do_delete(args):
     LOG.info("rpms    : {0}".format(args.rpms))
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
+    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
         repo_manager.delete_rpm(rpm, args.repo)
 
@@ -78,6 +81,7 @@ def do_replace(args):
     LOG.info("rpms    : {0}".format(args.rpms))
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
+    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
         repo_manager.replace_rpm(rpm, args.repo)
 
@@ -92,6 +96,9 @@ def setup_parser():
         '--config', dest="configfile",
         help="Configuration file to use instead of the default one in "
         "~/.config/repo_manager")
+    parser.add_argument(
+        '--no-createrepo', default=False, action='store_true',
+        help="Do not run createrepo on the repo")
     parser.add_argument(
         '-v', '--verbose', action='store_true',
         help="Gives more info about what's going on")
