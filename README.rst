@@ -18,14 +18,14 @@ Actions:
 * ``Add`` a package to an existing repository.
 * ``Remove`` a package from an existing repository.
 * ``Clean`` a repository.
-    This means remove duplicates while eventually keeping a number of the
-    most recent ones for future downgrade.
+  This means remove duplicates while eventually keeping a number of the
+  most recent ones for future downgrade.
 * ``Update`` a package from a repository into another (for example moving from
-    a testing repository into a production one).
+  a testing repository into a production one).
 * ``Replace`` a package from a repository into another (ie: replacing a
-    package in a repository with one having the same `nevr`).
+  package in a repository with one having the same `nevr`).
 * Get some ``info`` about the repository (number of RPMs, duplicates,
-    applications)
+  applications)
 
 
 License:
