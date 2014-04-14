@@ -28,12 +28,28 @@ LOG = logging.getLogger("repo-manager")
 CONFIG = ConfigParser.ConfigParser()
 
 
+def _get_repos(args):
+    ''' Return the repos to process, either via the CLI argument or the
+    configuration.
+    '''
+    repos = args.repos
+    if not repos:
+        if CONFIG.has_section('main') and \
+                CONFIG.has_option('main', 'default_repos'):
+            repos = CONFIG.get('main', 'default_repos').split(',')
+        else:
+            repos = []
+    return repos
+
+
 def do_info(args):
     ''' Return information about a repo. '''
     LOG.info("Info")
     LOG.info("repos   : {0}".format(args.repos))
     LOG.info("config  : {0}".format(args.configfile))
-    for repo in args.repos:
+    repos = _get_repos(args)
+    LOG.debug('repos  : {0}'.format(repos))
+    for repo in repos:
         repo_manager.info_repo(repo)
 
 
