@@ -164,6 +164,27 @@ def do_delete(args):
         )
 
 
+def do_update(args):
+    ''' Update/Copy rpms from a repository into others. '''
+    LOG.info("Update")
+    LOG.info("rpms    : {0}".format(args.rpms))
+    LOG.info("repo    : {0}".format(args.repo_from))
+    LOG.info("repo    : {0}".format(args.repo))
+    LOG.info("config  : {0}".format(args.configfile))
+    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    repos = _get_repos(args)
+    no_createrepo = _get_no_createrepo(args)
+    createrepo_cmd = _get_createrepo_cmd()
+    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
+        repo_manager.update_rpm(
+            rpm,
+            repo_from=args.repo_from,
+            folder_to=repo,
+            no_createrepo=no_createrepo,
+            createrepo_cmd=createrepo_cmd,
+        )
+
+
 def do_replace(args):
     ''' Repleace a rpm of a repository. '''
     LOG.info("Repleace")
@@ -272,6 +293,21 @@ def setup_parser():
         '--repos', default=None, nargs="?",
         help="Repositories to replace the RPMs of")
     parser_acl.set_defaults(func=do_replace)
+
+    ## UPDATE
+    parser_acl = subparsers.add_parser(
+        'update',
+        help='Update/Copy a rpm from a repo into another one')
+    parser_acl.add_argument(
+        'rpms', default=None, nargs="+",
+        help="RPMs to replace")
+    parser_acl.add_argument(
+        '--repo_from', default=None, nargs="?",
+        help="Repository from which to copy the RPMs")
+    parser_acl.add_argument(
+        '--repos', default=None, nargs="?",
+        help="Repositories to copy the RPMs to")
+    parser_acl.set_defaults(func=do_update)
 
     return parser
 
