@@ -37,7 +37,12 @@ def _get_repos(args):
     if not repos:
         if CONFIG.has_section('main') and \
                 CONFIG.has_option('main', 'default_repos'):
-            repos = CONFIG.get('main', 'default_repos').split(',')
+            repo_name = CONFIG.get('main', 'default_repos').split(',')
+            repos = []
+            for repo in repo_name:
+                repo = repo.strip()
+                if CONFIG.has_section(repo):
+                    repos.append(CONFIG.get(repo.strip(), 'folder'))
         else:
             repos = []
     return repos
