@@ -169,6 +169,10 @@ def info_repo(folder, keep=3):
     LOG.debug('info_repo')
     folder = os.path.expanduser(folder)
 
+    if not os.path.exists(folder):
+        print '%s not found' % folder
+        return
+
     print folder
     cnt_rpm = 0
     cnt_srpm = 0
