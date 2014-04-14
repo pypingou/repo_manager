@@ -117,7 +117,8 @@ def get_duplicated_rpms(folder):
     return dups
 
 
-def clean_repo(folder, keep=3, srpm=False, dry_run=False, no_createrepo=False):
+def clean_repo(folder, keep=3, srpm=False, dry_run=False,
+               no_createrepo=False, createrepo_cmd=None):
     ''' Remove duplicates from a given folder.
     '''
     LOG.debug('clean_repo')
@@ -163,7 +164,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False, no_createrepo=False):
     print '  %s files after' % len(os.listdir(folder))
 
     if not dry_run and not no_createrepo:
-        run_createrepo(folder)
+        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
 def info_repo(folder, keep=3):
@@ -200,7 +201,7 @@ def info_repo(folder, keep=3):
     print '  %s SRPMs/RPMs could be removed' % cnt
 
 
-def add_rpm(rpm, folder, no_createrepo=False):
+def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
     ''' Copy the provided RPM into the specified folder.
     '''
     LOG.debug('add_rpm')
@@ -224,10 +225,10 @@ def add_rpm(rpm, folder, no_createrepo=False):
     shutil.copy(rpm, folder)
 
     if not no_createrepo:
-        run_createrepo(folder)
+        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def delete_rpm(rpm, folder, no_createrepo=False):
+def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
     ''' Delete the specified RPM of the specified folder.
     '''
     LOG.debug('delete_rpm')
@@ -251,10 +252,10 @@ def delete_rpm(rpm, folder, no_createrepo=False):
     os.unlink(path)
 
     if not no_createrepo:
-        run_createrepo(folder)
+        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def replace_rpm(rpm, folder, no_createrepo=False):
+def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
     ''' Replace an RPM in a repository, this means replacing an existing
     RPM of the repository by one being exactly the same (same name, version
     and release).
@@ -269,17 +270,19 @@ def replace_rpm(rpm, folder, no_createrepo=False):
 
     delete_rpm(rpmfile, folder)
     if not no_createrepo:
-        run_createrepo(folder)
+        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
     add_rpm(rpm, folder)
     if not no_createrepo:
-        run_createrepo(folder)
+        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def run_createrepo(folder):
+def run_createrepo(folder, createrepo_cmd=None):
     ''' Run the ``createrepo`` command in the specified folder.
     '''
     cur_wd = os.getcwd()
     os.chdir(folder)
-    cmd = ['createrepo', '.']
+    createrepo_cmd=createrepo_cmd or 'createrepo'
+    LOG.debug('  Calling  : %s', createrepo_cmd)
+    cmd = [createrepo_cmd, '.']
     subprocess.call(cmd, shell=True)
     os.chdir(cur_wd)
