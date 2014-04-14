@@ -25,6 +25,7 @@ import repo_manager
 __version__ = '0.1.0'
 logging.basicConfig()
 LOG = logging.getLogger("repo-manager")
+CONFIG = ConfigParser.ConfigParser()
 
 
 def do_info(args):
@@ -201,6 +202,11 @@ def main():
         LOG.setLevel(logging.DEBUG)
     elif arg.verbose:
         LOG.setLevel(logging.INFO)
+
+    if arg.config:
+        CONFIG = CONFIG.read(arg.config)
+    elif os.path.exists('/etc/repo_manager.cfg'):
+        CONFIG = CONFIG.read('/etc/repo_manager.cfg')
 
     return_code = 0
 
