@@ -276,6 +276,42 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
+def update_rpm(rpm, folder_from, folder_to,
+               no_createrepo=False, createrepo_cmd=None):
+    ''' Update/copy the specified RPM from one repo into another one.
+    '''
+    LOG.debug('update_rpm')
+    rpm = os.path.expanduser(rpm)
+    folder_from = os.path.expanduser(folder_from)
+    folder_to = os.path.expanduser(folder_to)
+
+    path = os.path.join(folder_from, rpm)
+    # Check input
+    if not os.path.exists(path):
+        print 'RPM "%s" could not be found' % path
+        return
+    if not is_rpm(path):
+        print '"%s" does not point to a RPM file' % path
+        return
+
+    # Check destination
+    if not os.path.exists(folder_to):
+        print 'Folder "%s" could not be found' % folder_to
+        return
+    elif not os.path.isdir(folder_to):
+        print '"%s" is not a folder' % folder_to
+        return
+
+    add_rpm(
+        rpm, folder_to,
+        no_createrepo=no_createrepo,
+        createrepo_cmd=createrepo_cmd)
+
+    delete_rpm(
+        rpm, folder_from,
+        no_createrepo=no_createrepo,
+        createrepo_cmd=createrepo_cmd)
+
 def run_createrepo(folder, createrepo_cmd=None):
     ''' Run the ``createrepo`` command in the specified folder.
     '''
