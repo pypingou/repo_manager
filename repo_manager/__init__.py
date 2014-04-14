@@ -203,10 +203,11 @@ def main():
     elif arg.verbose:
         LOG.setLevel(logging.INFO)
 
-    if arg.config:
-        CONFIG = CONFIG.read(arg.config)
+    global CONFIG
+    if arg.configfile:
+        CONFIG.read(arg.configfile)
     elif os.path.exists('/etc/repo_manager.cfg'):
-        CONFIG = CONFIG.read('/etc/repo_manager.cfg')
+        CONFIG.read('/etc/repo_manager.cfg')
 
     return_code = 0
 
