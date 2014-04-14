@@ -62,6 +62,26 @@ def _get_no_createrepo(args):
     return no_createrepo
 
 
+def _get_keep(args):
+    ''' Return the keep argument, either via the CLI argument or the
+    configuration.
+    '''
+    keeps = args.keep
+    if not repos:
+        if CONFIG.has_section('main') and \
+                CONFIG.has_option('main', 'default_repos'):
+            repo_name = CONFIG.get('main', 'default_repos').split(',')
+            keeps = []
+            for repo in repo_name:
+                repo = repo.strip()
+                if CONFIG.has_section(repo) and \
+                        CONFIG.has_option(repo, 'keep'):
+                    repos.append(CONFIG.get(repo, 'keep'))
+        else:
+            keeps = [None]
+    return keeps
+
+
 def do_info(args):
     ''' Return information about a repo. '''
     LOG.info("Info")
@@ -96,11 +116,12 @@ def do_clean(args):
     LOG.info("config     : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
+    keeps = _get_keep(args)
     no_createrepo = _get_no_createrepo(args)
-    for repo in repos:
+    for repo, keepin itertoolsmodule.product(repos, keeps):
         repo_manager.clean_repo(
             repo,
-            keep=args.keep,
+            keep=keep,
             srpm=args.clean_srpm,
             dry_run=args.dry_run,
             no_createrepo=no_createrepo)
