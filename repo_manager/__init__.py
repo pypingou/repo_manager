@@ -46,6 +46,10 @@ def _get_repos(args):
                     repos.append(CONFIG.get(repo, 'folder'))
         else:
             repos = []
+    else:
+        if CONFIG.has_section(repos) and CONFIG.has_option(repos, 'folder'):
+            repos = [CONFIG.get(repos, 'folder')]
+
     return repos
 
 
