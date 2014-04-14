@@ -123,6 +123,10 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False, no_createrepo=False):
     LOG.debug('clean_repo')
     folder = os.path.expanduser(folder)
 
+    if not os.path.exists(folder):
+        print '%s not found' % folder
+        return
+
     before = len(os.listdir(folder))
     dups = get_duplicated_rpms(folder)
     cnt = 0
