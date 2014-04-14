@@ -44,7 +44,8 @@ def do_add(args):
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
-        repo_manager.add_rpm(rpm, args.repo)
+        repo_manager.add_rpm(
+            rpm, args.repo, no_createrepo=args.no_createrepo)
 
 
 def do_clean(args):
@@ -61,7 +62,8 @@ def do_clean(args):
             repo,
             keep=args.keep,
             srpm=args.clean_srpm,
-            dry_run=args.dry_run)
+            dry_run=args.dry_run,
+            no_createrepo=args.no_createrepo)
 
 
 def do_delete(args):
@@ -72,7 +74,8 @@ def do_delete(args):
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
-        repo_manager.delete_rpm(rpm, args.repo)
+        repo_manager.delete_rpm(
+            rpm, args.repo, no_createrepo=args.no_createrepo)
 
 
 def do_replace(args):
@@ -83,7 +86,8 @@ def do_replace(args):
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     for rpm in args.rpms:
-        repo_manager.replace_rpm(rpm, args.repo)
+        repo_manager.replace_rpm(
+            rpm, args.repo, no_createrepo=args.no_createrepo)
 
 
 def setup_parser():
