@@ -152,8 +152,8 @@ def setup_parser():
         'rpms', default=None, nargs="+",
         help="RPMs to add")
     parser_acl.add_argument(
-        '--repo', default=None, nargs="?",
-        help="Repository to add the RPMs to")
+        '--repos', default=None, nargs="?",
+        help="Repositories to add the RPMs to")
     parser_acl.set_defaults(func=do_add)
 
     ## CLEAN
@@ -183,8 +183,8 @@ def setup_parser():
         'rpms', default=None, nargs="+",
         help="RPMs to delete")
     parser_acl.add_argument(
-        '--repo', default=None, nargs="?",
-        help="Repository to delete the RPMs from")
+        '--repos', default=None, nargs="?",
+        help="Repositories to delete the RPMs from")
     parser_acl.set_defaults(func=do_delete)
 
     ## REPLACE
@@ -195,8 +195,8 @@ def setup_parser():
         'rpms', default=None, nargs="+",
         help="RPMs to replace")
     parser_acl.add_argument(
-        '--repo', default=None, nargs="?",
-        help="Repository to replace the RPMs of")
+        '--repos', default=None, nargs="?",
+        help="Repositories to replace the RPMs of")
     parser_acl.set_defaults(func=do_replace)
 
     return parser
