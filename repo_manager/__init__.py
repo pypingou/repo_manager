@@ -43,6 +43,20 @@ def _get_repos(args):
     return repos
 
 
+def _get_no_createrepo(args):
+    ''' Return the no-createrepo seeting, either via the CLI argument or the
+    configuration.
+    '''
+    no_createrepo = args.no_createrepo
+    if not no_createrepo:
+        if CONFIG.has_section('main') and \
+                CONFIG.has_option('main', 'no-createrepo'):
+            no_createrepo = CONFIG.get('main', 'no-createrepo')
+        else:
+            no_createrepo = False
+    return no_createrepo
+
+
 def do_info(args):
     ''' Return information about a repo. '''
     LOG.info("Info")
@@ -61,9 +75,10 @@ def do_add(args):
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
+    no_createrepo = _get_no_createrepo(args)
     for rpm, repo in itertoolsmodule.product(args.rpms, repos):
         repo_manager.add_rpm(
-            rpm, repo, no_createrepo=args.no_createrepo)
+            rpm, repo, no_createrepo=no_createrepo)
 
 
 def do_clean(args):
@@ -76,13 +91,14 @@ def do_clean(args):
     LOG.info("config     : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
+    no_createrepo = _get_no_createrepo(args)
     for repo in repos:
         repo_manager.clean_repo(
             repo,
             keep=args.keep,
             srpm=args.clean_srpm,
             dry_run=args.dry_run,
-            no_createrepo=args.no_createrepo)
+            no_createrepo=no_createrepo)
 
 
 def do_delete(args):
@@ -93,9 +109,10 @@ def do_delete(args):
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
+    no_createrepo = _get_no_createrepo(args)
     for rpm, repo in itertoolsmodule.product(args.rpms, repos):
         repo_manager.delete_rpm(
-            rpm, args.repo, no_createrepo=args.no_createrepo)
+            rpm, args.repo, no_createrepo=no_createrepo)
 
 
 def do_replace(args):
@@ -105,9 +122,10 @@ def do_replace(args):
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    no_createrepo = _get_no_createrepo(args)
     for rpm in args.rpms:
         repo_manager.replace_rpm(
-            rpm, args.repo, no_createrepo=args.no_createrepo)
+            rpm, args.repo, no_createrepo=no_createrepo)
 
 
 def setup_parser():
