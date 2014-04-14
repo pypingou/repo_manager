@@ -17,6 +17,7 @@
 
 import ConfigParser
 import argparse
+import itertoolsmodule
 import logging
 
 import repo_manager
@@ -48,7 +49,6 @@ def do_info(args):
     LOG.info("repos   : {0}".format(args.repos))
     LOG.info("config  : {0}".format(args.configfile))
     repos = _get_repos(args)
-    LOG.debug('repos  : {0}'.format(repos))
     for repo in repos:
         repo_manager.info_repo(repo)
 
@@ -60,9 +60,10 @@ def do_add(args):
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
-    for rpm in args.rpms:
+    repos = _get_repos(args)
+    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
         repo_manager.add_rpm(
-            rpm, args.repo, no_createrepo=args.no_createrepo)
+            rpm, repo, no_createrepo=args.no_createrepo)
 
 
 def do_clean(args):
@@ -74,7 +75,8 @@ def do_clean(args):
     LOG.info("dry_run    : {0}".format(args.dry_run))
     LOG.info("config     : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
-    for repo in args.repos:
+    repos = _get_repos(args)
+    for repo in repos:
         repo_manager.clean_repo(
             repo,
             keep=args.keep,
@@ -90,7 +92,8 @@ def do_delete(args):
     LOG.info("repo    : {0}".format(args.repo))
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
-    for rpm in args.rpms:
+    repos = _get_repos(args)
+    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
         repo_manager.delete_rpm(
             rpm, args.repo, no_createrepo=args.no_createrepo)
 
