@@ -117,7 +117,7 @@ def get_duplicated_rpms(folder):
     return dups
 
 
-def clean_repo(folder, keep=3, srpm=False, dry_run=False):
+def clean_repo(folder, keep=3, srpm=False, dry_run=False, no_createrepo=False):
     ''' Remove duplicates from a given folder.
     '''
     LOG.debug('clean_repo')
@@ -159,6 +159,9 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False):
         print '  %s source RPMs removed' % srpm_cnt
     print '  %s files after' % len(os.listdir(folder))
 
+    if not dry_run and not no_createrepo:
+        run_createrepo(folder)
+
 
 def info_repo(folder, keep=3):
     ''' Returns some info/stats about the specified repo.
@@ -190,7 +193,7 @@ def info_repo(folder, keep=3):
     print '  %s SRPMs/RPMs could be removed' % cnt
 
 
-def add_rpm(rpm, folder):
+def add_rpm(rpm, folder, no_createrepo=False):
     ''' Copy the provided RPM into the specified folder.
     '''
     LOG.debug('add_rpm')
@@ -213,8 +216,11 @@ def add_rpm(rpm, folder):
     LOG.debug('Moving file "%s", into folder "%s"', rpm, folder)
     shutil.copy(rpm, folder)
 
+    if not no_createrepo:
+        run_createrepo(folder)
 
-def delete_rpm(rpm, folder):
+
+def delete_rpm(rpm, folder, no_createrepo=False):
     ''' Delete the specified RPM of the specified folder.
     '''
     LOG.debug('delete_rpm')
@@ -236,6 +242,9 @@ def delete_rpm(rpm, folder):
 
     LOG.debug('Deleting file "%s"', path)
     os.unlink(path)
+
+    if not no_createrepo:
+        run_createrepo(folder)
 
 
 def replace_rpm(rpm, folder, no_createrepo=False):
