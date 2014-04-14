@@ -7,6 +7,7 @@
 dist
 *.egg-info
 build
+MANIFEST
 .project
 .pydevproject
 .coverage
