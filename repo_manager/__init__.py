@@ -158,7 +158,8 @@ def do_delete(args):
     createrepo_cmd = _get_createrepo_cmd()
     for rpm, repo in itertoolsmodule.product(args.rpms, repos):
         repo_manager.delete_rpm(
-            rpm, args.repo,
+            rpm,
+            repo,
             no_createrepo=no_createrepo,
             createrepo_cmd=createrepo_cmd,
         )
