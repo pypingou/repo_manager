@@ -119,7 +119,7 @@ def do_clean(args):
     repos = _get_repos(args)
     keeps = _get_keep(args)
     no_createrepo = _get_no_createrepo(args)
-    for repo, keepin itertoolsmodule.product(repos, keeps):
+    for repo, keep in itertoolsmodule.product(repos, keeps):
         repo_manager.clean_repo(
             repo,
             keep=keep,
