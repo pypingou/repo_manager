@@ -1,0 +1,28 @@
+[main]
+# The default repos to use if None are specified by the command line arguments
+default_repos = repo1,repo2,repo3
+# Generic flag to turn on/off calls to createrepo
+no-createrepo = False
+# Which crearepo command to call
+createrepo = /usr/bin/createrepo
+
+[repo1]
+# Path to the folder containing the repo
+folder = /var/www/html/repo1
+# Number of latest versions of an application to keep
+keep = 2
+
+[repo2]
+# Path to the folder containing the repo
+folder = /var/www/html/repo2
+# Number of latest versions of an application to keep
+keep = 3
+# Parent repo, from which to get the RPM when doing an ``update``
+parent = repo1
+
+[repo3]
+# Path to the folder containing the repo
+folder = /srv/private_repo/
+# If no keep option is specified, the default of 3 is used
+# If no parent is specified, the command ``update`` will require one specified
+# via the command line argument
