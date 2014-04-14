@@ -312,12 +312,13 @@ def update_rpm(rpm, folder_from, folder_to,
         no_createrepo=no_createrepo,
         createrepo_cmd=createrepo_cmd)
 
+
 def run_createrepo(folder, createrepo_cmd=None):
     ''' Run the ``createrepo`` command in the specified folder.
     '''
     cur_wd = os.getcwd()
     os.chdir(folder)
-    createrepo_cmd=createrepo_cmd or 'createrepo'
+    createrepo_cmd = createrepo_cmd or 'createrepo'
     LOG.debug('  Calling  : %s', createrepo_cmd)
     cmd = [createrepo_cmd, '.']
     subprocess.call(cmd, shell=True)
