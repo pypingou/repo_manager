@@ -143,7 +143,6 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False, no_createrepo=False):
                     LOG.debug('Remove file {0}', filename)
                     os.unlink(filename)
 
-
     srpm_cnt = 0
     if srpm:
         for rpmfile in os.listdir(folder):
