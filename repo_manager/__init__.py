@@ -41,8 +41,9 @@ def _get_repos(args):
             repos = []
             for repo in repo_name:
                 repo = repo.strip()
-                if CONFIG.has_section(repo):
-                    repos.append(CONFIG.get(repo.strip(), 'folder'))
+                if CONFIG.has_section(repo) and \
+                        CONFIG.has_option(repo, 'folder'):
+                    repos.append(CONFIG.get(repo, 'folder'))
         else:
             repos = []
     return repos
