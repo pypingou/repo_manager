@@ -84,8 +84,8 @@ def _get_keep(args):
     ''' Return the keep argument, either via the CLI argument or the
     configuration.
     '''
-    keeps = args.keep
-    if not repos:
+    keeps = [args.keep]
+    if not args.repos:
         if CONFIG.has_section('main') and \
                 CONFIG.has_option('main', 'default_repos'):
             repo_name = CONFIG.get('main', 'default_repos').split(',')
@@ -95,8 +95,6 @@ def _get_keep(args):
                 if CONFIG.has_section(repo) and \
                         CONFIG.has_option(repo, 'keep'):
                     repos.append(CONFIG.get(repo, 'keep'))
-        else:
-            keeps = [None]
     return keeps
 
 
