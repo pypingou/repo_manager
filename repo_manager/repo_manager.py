@@ -198,7 +198,8 @@ def info_repo(folder, keep=3):
             if rpmfile['version'] not in keep_versions:
                 cnt += 1
 
-    print '  %s SRPMs/RPMs could be removed' % cnt
+    print '  %s SRPMs/RPMs are present more than %s times and thus could '\
+    'be removed' % (cnt, keep)
 
 
 def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
