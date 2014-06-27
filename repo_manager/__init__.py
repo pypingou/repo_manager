@@ -154,7 +154,7 @@ def do_delete(args):
     ''' Delete a rpm from a repository. '''
     LOG.info("Delete")
     LOG.info("rpms    : {0}".format(args.rpms))
-    LOG.info("repo    : {0}".format(args.repo))
+    LOG.info("repo    : {0}".format(args.repos))
     LOG.info("config  : {0}".format(args.configfile))
     LOG.info("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
