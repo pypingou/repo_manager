@@ -132,7 +132,9 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
     dups = get_duplicated_rpms(folder)
     cnt = 0
     if not dry_run:
-        LOG.info('Cleaning duplicates files (keeping the last %s)', keep)
+        LOG.info(
+            'Cleaning duplicates files (keeping the last %s) in %s',
+            keep, folder)
     for dup in sorted(dups):
         versions = [rpmfile['version'] for rpmfile in sorted(dups[dup])]
         keep_versions = versions[-keep:]
