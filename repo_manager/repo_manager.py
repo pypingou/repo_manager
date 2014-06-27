@@ -211,7 +211,7 @@ def info_repo(folder, keep=3):
                 cnt += 1
 
     print '  %s SRPMs/RPMs are present more than %s times and thus could '\
-    'be removed' % (cnt, keep)
+        'be removed' % (cnt, keep)
 
 
 def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
