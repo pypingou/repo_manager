@@ -19,6 +19,7 @@ import ConfigParser
 import argparse
 import itertoolsmodule
 import logging
+import os
 
 import repo_manager
 
