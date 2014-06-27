@@ -342,6 +342,20 @@ def main():
     elif os.path.exists('/etc/repo_manager.cfg'):
         CONFIG.read('/etc/repo_manager.cfg')
 
+    if CONFIG.has_section('main') and \
+            CONFIG.has_option('main', 'log_file'):
+        log_file = CONFIG.get('main', 'log_file')
+        if CONFIG.has_option('main', 'unique_log') \
+                and CONFIG.getboolean('main', 'unique_log'):
+            # Close/Remove existing logfile
+            repo_manager.LOG.handlers[0].stream.close()
+            repo_manager.LOG.removeHandler(repo_manager.LOG.handlers[0])
+        # Create new logfile
+        repo_manager.HDLER = logging.FileHandler(log_file)
+        repo_manager.HDLER.setFormatter(repo_manager.FORMATTER)
+        repo_manager.HDLER.setLevel(logging.INFO)
+        repo_manager.LOG.addHandler(repo_manager.HDLER)
+
     return_code = 0
 
     try:
