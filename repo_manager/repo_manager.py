@@ -23,8 +23,13 @@ import subprocess
 TS = rpm.ts()
 TS.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
 
-logging.basicConfig()
 LOG = logging.getLogger("repo_manager")
+HDLER = logging.FileHandler('/var/tmp/repo_manager.log')
+FORMATTER = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+HDLER.setFormatter(FORMATTER)
+HDLER.setLevel(logging.INFO)
+LOG.addHandler(HDLER)
+LOG.setLevel(logging.WARNING)
 
 
 def is_rpm(rpmfile):
