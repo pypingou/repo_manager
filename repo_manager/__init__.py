@@ -331,8 +331,10 @@ def main():
 
     if arg.debug:
         LOG.setLevel(logging.DEBUG)
+        repo_manager.LOG.setLevel(logging.DEBUG)
     elif arg.verbose:
         LOG.setLevel(logging.INFO)
+        repo_manager.LOG.setLevel(logging.DEBUG)
 
     global CONFIG
     if arg.configfile:
