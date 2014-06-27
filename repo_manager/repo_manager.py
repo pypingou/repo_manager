@@ -328,5 +328,6 @@ def run_createrepo(folder, createrepo_cmd=None):
     createrepo_cmd = createrepo_cmd or 'createrepo'
     LOG.info('Run %s on %s', createrepo_cmd, os.getcwd())
     cmd = [createrepo_cmd, '.']
-    subprocess.call(cmd, shell=True)
+    LOG.debug('  Calling  : `%s` from %s', cmd, folder)
+    subprocess.call(' '.join(cmd), shell=True)
     os.chdir(cur_wd)
