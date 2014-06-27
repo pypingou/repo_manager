@@ -350,11 +350,14 @@ def main():
             # Close/Remove existing logfile
             repo_manager.LOG.handlers[0].stream.close()
             repo_manager.LOG.removeHandler(repo_manager.LOG.handlers[0])
-        # Create new logfile
-        repo_manager.HDLER = logging.FileHandler(log_file)
-        repo_manager.HDLER.setFormatter(repo_manager.FORMATTER)
-        repo_manager.HDLER.setLevel(logging.INFO)
-        repo_manager.LOG.addHandler(repo_manager.HDLER)
+
+        if not repo_manager.LOG.handlers \
+                or repo_manager.LOG.handlers[0].baseFilename != log_file:
+            # Create new logfile
+            repo_manager.HDLER = logging.FileHandler(log_file)
+            repo_manager.HDLER.setFormatter(repo_manager.FORMATTER)
+            repo_manager.HDLER.setLevel(logging.INFO)
+            repo_manager.LOG.addHandler(repo_manager.HDLER)
 
     return_code = 0
 
