@@ -131,6 +131,8 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
     before = len(os.listdir(folder))
     dups = get_duplicated_rpms(folder)
     cnt = 0
+    if not dry_run:
+        LOG.info('Cleaning duplicates files (keeping the last %s)', keep)
     for dup in sorted(dups):
         versions = [rpmfile['version'] for rpmfile in sorted(dups[dup])]
         keep_versions = versions[-keep:]
@@ -141,11 +143,13 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
-                    LOG.debug('Remove file {0}', filename)
+                    LOG.info(
+                        'Remove file %s while cleaning the repo', filename)
                     os.unlink(filename)
 
     srpm_cnt = 0
     if srpm:
+        LOG.info('Cleaning duplicates srpm')
         for rpmfile in os.listdir(folder):
             if rpmfile.endswith('.src.rpm'):
                 srpm_cnt += 1
@@ -153,7 +157,8 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
-                    LOG.debug('Remove file %s', filename)
+                    LOG.info(
+                        'Remove file %s while cleaning the repo', filename)
                     os.unlink(filename)
 
     print folder
@@ -222,7 +227,7 @@ def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         print '"%s" is not a folder' % folder
         return
 
-    LOG.debug('Moving file "%s", into folder "%s"', rpm, folder)
+    LOG.info('Adding file "%s", into folder "%s"', rpm, folder)
     shutil.copy(rpm, folder)
 
     if not no_createrepo:
@@ -249,7 +254,7 @@ def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         print '"%s" does not point to a RPM file' % path
         return
 
-    LOG.debug('Deleting file "%s"', path)
+    LOG.info('Deleting file "%s"', path)
     os.unlink(path)
 
     if not no_createrepo:
@@ -317,10 +322,11 @@ def update_rpm(rpm, folder_from, folder_to,
 def run_createrepo(folder, createrepo_cmd=None):
     ''' Run the ``createrepo`` command in the specified folder.
     '''
+    LOG.debug('run_createrepo')
     cur_wd = os.getcwd()
     os.chdir(folder)
     createrepo_cmd = createrepo_cmd or 'createrepo'
-    LOG.debug('  Calling  : %s', createrepo_cmd)
+    LOG.info('Run %s on %s', createrepo_cmd, os.getcwd())
     cmd = [createrepo_cmd, '.']
     subprocess.call(cmd, shell=True)
     os.chdir(cur_wd)
