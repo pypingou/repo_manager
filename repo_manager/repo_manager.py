@@ -139,7 +139,7 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
         for rpmfile in sorted(dups[dup]):
             if rpmfile['version'] not in keep_versions:
                 cnt += 1
-                filename = os.path.join(folder, rpmfile['filename'])
+                filename = rpmfile['filename']
                 if dry_run:
                     print('Remove file {0}'.format(filename))
                 else:
