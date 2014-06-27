@@ -5,6 +5,12 @@ default_repos = repo1,repo2,repo3
 no-createrepo = False
 # Which crearepo command to call
 createrepo = /usr/bin/createrepo
+# the place where to store the log file storing the history of
+# repo_manager's actions
+log_file = /var/tmp/repo_manager.log
+# Wether to log only in log_file (if set) or to log in both the specified
+# log_file and the default log (/var/tmp/repo_manager.log)
+unique_log = False
 
 [repo1]
 # Path to the folder containing the repo
