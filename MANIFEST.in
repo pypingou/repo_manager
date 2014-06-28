@@ -1,1 +1,2 @@
 include LICENSE README.rst repo_manager.cfg.sample
+include repo_manager.spec
