@@ -169,7 +169,7 @@ def do_delete(args):
         )
 
 
-def do_update(args):
+def do_upgrade(args):
     ''' Update/Copy rpms from a repository into others. '''
     LOG.info("Update")
     LOG.info("rpms    : {0}".format(args.rpms))
@@ -299,10 +299,10 @@ def setup_parser():
         help="Repositories to replace the RPMs of")
     parser_acl.set_defaults(func=do_replace)
 
-    ## UPDATE
+    ## UPGRADE
     parser_acl = subparsers.add_parser(
-        'update',
-        help='Update/Copy a rpm from a repo into another one')
+        'upgrade',
+        help='Upgrade/Copy a rpm from a repo into another one')
     parser_acl.add_argument(
         'rpms', default=None, nargs="+",
         help="RPMs to replace")
@@ -312,7 +312,7 @@ def setup_parser():
     parser_acl.add_argument(
         '--repos', default=None, nargs="?",
         help="Repositories to copy the RPMs to")
-    parser_acl.set_defaults(func=do_update)
+    parser_acl.set_defaults(func=do_upgrade)
 
     return parser
 
