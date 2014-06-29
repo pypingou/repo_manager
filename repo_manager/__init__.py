@@ -123,6 +123,7 @@ def do_add(args):
             rpm, repo,
             no_createrepo=no_createrepo,
             createrepo_cmd=createrepo_cmd,
+            message=args.message,
         )
 
 
@@ -166,6 +167,7 @@ def do_delete(args):
             repo,
             no_createrepo=no_createrepo,
             createrepo_cmd=createrepo_cmd,
+            message=args.message,
         )
 
 
@@ -187,6 +189,7 @@ def do_upgrade(args):
             folder_to=repo,
             no_createrepo=no_createrepo,
             createrepo_cmd=createrepo_cmd,
+            message=args.message,
         )
 
 
@@ -204,6 +207,7 @@ def do_replace(args):
             rpm, args.repo,
             no_createrepo=no_createrepo,
             createrepo_cmd=createrepo_cmd,
+            message=args.message,
         )
 
 
@@ -254,6 +258,9 @@ def setup_parser():
     parser_acl.add_argument(
         '--repos', default=None, nargs="*",
         help="Repositories to add the RPMs to")
+    parser_acl.add_argument(
+        '-m', '--message', default=None,
+        help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_add)
 
     ## CLEAN
@@ -285,6 +292,9 @@ def setup_parser():
     parser_acl.add_argument(
         '--repos', default=None, nargs="*",
         help="Repositories to delete the RPMs from")
+    parser_acl.add_argument(
+        '-m', '--message', default=None,
+        help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_delete)
 
     ## REPLACE
@@ -297,6 +307,9 @@ def setup_parser():
     parser_acl.add_argument(
         '--repos', default=None, nargs="*",
         help="Repositories to replace the RPMs of")
+    parser_acl.add_argument(
+        '-m', '--message', default=None,
+        help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_replace)
 
     ## UPGRADE
@@ -312,6 +325,9 @@ def setup_parser():
     parser_acl.add_argument(
         '--repos', default=None, nargs="?",
         help="Repositories to copy the RPMs to")
+    parser_acl.add_argument(
+        '-m', '--message', default=None,
+        help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_upgrade)
 
     return parser
