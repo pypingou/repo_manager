@@ -214,7 +214,8 @@ def info_repo(folder, keep=3):
         'be removed' % (cnt, keep)
 
 
-def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
+def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
+            message=None):
     ''' Copy the provided RPM into the specified folder.
     '''
     LOG.debug('add_rpm')
@@ -235,13 +236,16 @@ def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         return
 
     LOG.info('Adding file "%s", into folder "%s"', rpm, folder)
+    if message:
+        LOG.info('   Message: %s', message)
     shutil.copy(rpm, folder)
 
     if not no_createrepo:
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
+def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
+               message=None):
     ''' Delete the specified RPM of the specified folder.
     '''
     LOG.debug('delete_rpm')
@@ -262,13 +266,16 @@ def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         return
 
     LOG.info('Deleting file "%s"', path)
+    if message:
+        LOG.info('   Message: %s', message)
     os.unlink(path)
 
     if not no_createrepo:
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
+def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
+                message=None):
     ''' Replace an RPM in a repository, this means replacing an existing
     RPM of the repository by one being exactly the same (same name, version
     and release).
@@ -281,16 +288,16 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
     if '/' in rpm:
         rpmfile = rpm.rsplit('/', 1)[1]
 
-    delete_rpm(rpmfile, folder)
+    delete_rpm(rpmfile, folder, message=message)
     if not no_createrepo:
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
-    add_rpm(rpm, folder)
+    add_rpm(rpm, folder, message=message)
     if not no_createrepo:
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
 def ugrade_rpm(rpm, folder_from, folder_to,
-               no_createrepo=False, createrepo_cmd=None):
+               no_createrepo=False, createrepo_cmd=None, message=None):
     ''' Upgrade/copy the specified RPM from one repo into another one.
     '''
     LOG.debug('update_rpm')
@@ -318,12 +325,14 @@ def ugrade_rpm(rpm, folder_from, folder_to,
     add_rpm(
         rpm, folder_to,
         no_createrepo=no_createrepo,
-        createrepo_cmd=createrepo_cmd)
+        createrepo_cmd=createrepo_cmd,
+        message=message)
 
     delete_rpm(
         rpm, folder_from,
         no_createrepo=no_createrepo,
-        createrepo_cmd=createrepo_cmd)
+        createrepo_cmd=createrepo_cmd,
+        message=message)
 
 
 def run_createrepo(folder, createrepo_cmd=None):
