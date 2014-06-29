@@ -289,9 +289,9 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None):
         run_createrepo(folder, createrepo_cmd=createrepo_cmd)
 
 
-def update_rpm(rpm, folder_from, folder_to,
+def ugrade_rpm(rpm, folder_from, folder_to,
                no_createrepo=False, createrepo_cmd=None):
-    ''' Update/copy the specified RPM from one repo into another one.
+    ''' Upgrade/copy the specified RPM from one repo into another one.
     '''
     LOG.debug('update_rpm')
     rpm = os.path.expanduser(rpm)

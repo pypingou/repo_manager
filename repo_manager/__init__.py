@@ -181,7 +181,7 @@ def do_upgrade(args):
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
     for rpm, repo in itertoolsmodule.product(args.rpms, repos):
-        repo_manager.update_rpm(
+        repo_manager.ugrade_rpm(
             rpm,
             repo_from=args.repo_from,
             folder_to=repo,
