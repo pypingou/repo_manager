@@ -295,6 +295,11 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
     rpm = os.path.expanduser(rpm)
     folder = os.path.expanduser(folder)
 
+    # Check input
+    if not is_rpm(rpm):
+        print '"%s" does not point to a RPM file' % rpm
+        return
+
     rpmfile = rpm
     if '/' in rpm:
         rpmfile = rpm.rsplit('/', 1)[1]
