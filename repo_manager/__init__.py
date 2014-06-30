@@ -237,7 +237,7 @@ def setup_parser():
 
     subparsers = parser.add_subparsers(title='actions')
 
-    ## INFO
+    # INFO
     parser_acl = subparsers.add_parser(
         'info',
         help='Provides information / stats about a repo')
@@ -249,7 +249,7 @@ def setup_parser():
         help="Number of RPMs of an application to keep")
     parser_acl.set_defaults(func=do_info)
 
-    ## ADD
+    # ADD
     parser_acl = subparsers.add_parser(
         'add',
         help='Add one or more RPMs into a repository')
@@ -264,7 +264,7 @@ def setup_parser():
         help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_add)
 
-    ## CLEAN
+    # CLEAN
     parser_acl = subparsers.add_parser(
         'clean',
         help='Remove duplicates in the specified, or default, repo')
@@ -283,7 +283,7 @@ def setup_parser():
         "would do.")
     parser_acl.set_defaults(func=do_clean)
 
-    ## DELETE
+    # DELETE
     parser_acl = subparsers.add_parser(
         'delete',
         help='delete one or more RPMs into a repository')
@@ -298,7 +298,7 @@ def setup_parser():
         help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_delete)
 
-    ## REPLACE
+    # REPLACE
     parser_acl = subparsers.add_parser(
         'replace',
         help='Replace one or more RPMs in a repository')
@@ -313,7 +313,7 @@ def setup_parser():
         help="Message added to the log file(s) and explaining the action")
     parser_acl.set_defaults(func=do_replace)
 
-    ## UPGRADE
+    # UPGRADE
     parser_acl = subparsers.add_parser(
         'upgrade',
         help='Upgrade/Copy a rpm from a repo into another one')
