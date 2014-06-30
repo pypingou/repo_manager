@@ -27,7 +27,6 @@ repositories (number of RPMs, SRPMs, duplicates) and clean them (ie: remove
 the duplicates while keeping the last X versions available, X being set by
 the user).
 
-
 %prep
 %setup -q
 
@@ -40,6 +39,9 @@ the user).
 # Install the sameple configuration file
 mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/
 install repo_manager.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/
+
+%check
+%{__python} setup.py test
 
 %files
 %doc README.rst LICENSE repo_manager.cfg.sample
