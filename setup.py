@@ -21,4 +21,5 @@ setup(
         repo_manager = repo_manager:main
     """,
     packages=['repo_manager'],
+    test_suite="tests",
 )
