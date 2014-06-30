@@ -44,6 +44,8 @@ LOG = logging.getLogger('repo_manager')
 def is_rpm(rpmfile):
     ''' Check if the provided rpm is indeed one.
     '''
+    if not os.path.isfile(rpmfile):
+        return False
     stream = open(rpmfile, 'rb')
     start = stream.read(4)
     stream.close()
