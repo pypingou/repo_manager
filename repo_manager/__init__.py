@@ -244,7 +244,7 @@ def setup_parser():
         'repos', default=None, nargs="*",
         help="Repositories to investigate")
     parser_acl.add_argument(
-        '--keep', default=3,
+        '--keep', default=3, type=int,
         help="Number of RPMs of an application to keep")
     parser_acl.set_defaults(func=do_info)
 
@@ -271,7 +271,7 @@ def setup_parser():
         'repos', default=None, nargs="*",
         help="Repositories to clean")
     parser_acl.add_argument(
-        '--keep', default=3,
+        '--keep', default=3, type=int,
         help="Number of RPMs of an application to keep")
     parser_acl.add_argument(
         '--clean-srpm', default=False, action='store_true',
