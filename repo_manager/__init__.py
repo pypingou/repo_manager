@@ -100,10 +100,10 @@ def _get_keep(args):
 
 def do_info(args):
     ''' Return information about a repo. '''
-    LOG.info("Info")
-    LOG.info("repos   : {0}".format(args.repos))
-    LOG.info("keep       : {0}".format(args.keep))
-    LOG.info("config  : {0}".format(args.configfile))
+    LOG.debug("Info")
+    LOG.debug("repos   : {0}".format(args.repos))
+    LOG.debug("keep       : {0}".format(args.keep))
+    LOG.debug("config  : {0}".format(args.configfile))
     repos = _get_repos(args)
     keeps = _get_keep(args)
     if keeps:
@@ -114,11 +114,11 @@ def do_info(args):
 
 def do_add(args):
     ''' Add a rpm to a repository. '''
-    LOG.info("Add")
-    LOG.info("rpms    : {0}".format(args.rpms))
-    LOG.info("repo    : {0}".format(args.repo))
-    LOG.info("config  : {0}".format(args.configfile))
-    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    LOG.debug("Add")
+    LOG.debug("rpms    : {0}".format(args.rpms))
+    LOG.debug("repo    : {0}".format(args.repo))
+    LOG.debug("config  : {0}".format(args.configfile))
+    LOG.debug("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
@@ -133,13 +133,13 @@ def do_add(args):
 
 def do_clean(args):
     ''' Clean a rpm repository from its duplicates. '''
-    LOG.info("Clean")
-    LOG.info("repos      : {0}".format(args.repos))
-    LOG.info("keep       : {0}".format(args.keep))
-    LOG.info("clean_srpm : {0}".format(args.clean_srpm))
-    LOG.info("dry_run    : {0}".format(args.dry_run))
-    LOG.info("config     : {0}".format(args.configfile))
-    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    LOG.debug("Clean")
+    LOG.debug("repos      : {0}".format(args.repos))
+    LOG.debug("keep       : {0}".format(args.keep))
+    LOG.debug("clean_srpm : {0}".format(args.clean_srpm))
+    LOG.debug("dry_run    : {0}".format(args.dry_run))
+    LOG.debug("config     : {0}".format(args.configfile))
+    LOG.debug("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
     keeps = _get_keep(args)
     no_createrepo = _get_no_createrepo(args)
@@ -157,11 +157,11 @@ def do_clean(args):
 
 def do_delete(args):
     ''' Delete a rpm from a repository. '''
-    LOG.info("Delete")
-    LOG.info("rpms    : {0}".format(args.rpms))
-    LOG.info("repo    : {0}".format(args.repos))
-    LOG.info("config  : {0}".format(args.configfile))
-    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    LOG.debug("Delete")
+    LOG.debug("rpms    : {0}".format(args.rpms))
+    LOG.debug("repo    : {0}".format(args.repos))
+    LOG.debug("config  : {0}".format(args.configfile))
+    LOG.debug("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
@@ -177,12 +177,12 @@ def do_delete(args):
 
 def do_upgrade(args):
     ''' Update/Copy rpms from a repository into others. '''
-    LOG.info("Update")
-    LOG.info("rpms    : {0}".format(args.rpms))
-    LOG.info("repo    : {0}".format(args.repo_from))
-    LOG.info("repo    : {0}".format(args.repo))
-    LOG.info("config  : {0}".format(args.configfile))
-    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    LOG.debug("Update")
+    LOG.debug("rpms    : {0}".format(args.rpms))
+    LOG.debug("repo    : {0}".format(args.repo_from))
+    LOG.debug("repo    : {0}".format(args.repo))
+    LOG.debug("config  : {0}".format(args.configfile))
+    LOG.debug("no createrepo  : {0}".format(args.no_createrepo))
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
@@ -199,11 +199,11 @@ def do_upgrade(args):
 
 def do_replace(args):
     ''' Repleace a rpm of a repository. '''
-    LOG.info("Repleace")
-    LOG.info("rpms    : {0}".format(args.rpms))
-    LOG.info("repo    : {0}".format(args.repo))
-    LOG.info("config  : {0}".format(args.configfile))
-    LOG.info("no createrepo  : {0}".format(args.no_createrepo))
+    LOG.debug("Repleace")
+    LOG.debug("rpms    : {0}".format(args.rpms))
+    LOG.debug("repo    : {0}".format(args.repo))
+    LOG.debug("config  : {0}".format(args.configfile))
+    LOG.debug("no createrepo  : {0}".format(args.no_createrepo))
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
     for rpm in args.rpms:
