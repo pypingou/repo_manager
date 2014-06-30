@@ -40,6 +40,7 @@ logging.getLogger('').addHandler(CSL)
 
 LOG = logging.getLogger('repo_manager')
 
+
 def is_rpm(rpmfile):
     ''' Check if the provided rpm is indeed one.
     '''
@@ -231,8 +232,8 @@ def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
     folder = os.path.expanduser(folder)
 
     # Check input
-    if not is_rpm(path):
-        print '"%s" does not point to a RPM file' % path
+    if not is_rpm(rpm):
+        print '"%s" does not point to a RPM file' % rpm
         return
 
     # Check destination
