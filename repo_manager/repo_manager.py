@@ -24,11 +24,13 @@ TS = rpm.ts()
 TS.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
 
 LOG = logging.getLogger("repo_manager")
+LOGFILE = logging.getLogger("repo_manager_file")
 HDLER = logging.FileHandler('/var/tmp/repo_manager.log')
 FORMATTER = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 HDLER.setFormatter(FORMATTER)
 HDLER.setLevel(logging.INFO)
-LOG.addHandler(HDLER)
+LOGFILE.addHandler(HDLER)
+LOGFILE.setLevel(logging.INFO)
 LOG.setLevel(logging.WARNING)
 
 
@@ -140,6 +142,9 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
         LOG.info(
             'Cleaning duplicates files (keeping the last %s) in %s',
             keep, folder)
+        LOGFILE.info(
+            'Cleaning duplicates files (keeping the last %s) in %s',
+            keep, folder)
     for dup in sorted(dups):
         versions = [rpmfile['version'] for rpmfile in sorted(dups[dup])]
         keep_versions = versions[-keep:]
@@ -152,11 +157,14 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
                 else:
                     LOG.info(
                         'Remove file %s while cleaning the repo', filename)
+                    LOGFILE.info(
+                        'Remove file %s while cleaning the repo', filename)
                     os.unlink(filename)
 
     srpm_cnt = 0
     if srpm:
         LOG.info('Cleaning duplicates srpm')
+        LOGFILE.info('Cleaning duplicates srpm')
         for rpmfile in os.listdir(folder):
             if rpmfile.endswith('.src.rpm'):
                 srpm_cnt += 1
@@ -165,6 +173,8 @@ def clean_repo(folder, keep=3, srpm=False, dry_run=False,
                     print('Remove file {0}'.format(filename))
                 else:
                     LOG.info(
+                        'Remove file %s while cleaning the repo', filename)
+                    LOGFILE.info(
                         'Remove file %s while cleaning the repo', filename)
                     os.unlink(filename)
 
@@ -236,8 +246,10 @@ def add_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
         return
 
     LOG.info('Adding file "%s", into folder "%s"', rpm, folder)
+    LOGFILE.info('Adding file "%s", into folder "%s"', rpm, folder)
     if message:
         LOG.info('   Message: %s', message)
+        LOGFILE.info('   Message: %s', message)
     shutil.copy(rpm, folder)
 
     if not no_createrepo:
@@ -266,8 +278,10 @@ def delete_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
         return
 
     LOG.info('Deleting file "%s"', path)
+    LOGFILE.info('Deleting file "%s"', path)
     if message:
         LOG.info('   Message: %s', message)
+        LOGFILE.info('   Message: %s', message)
     os.unlink(path)
 
     if not no_createrepo:
@@ -343,6 +357,7 @@ def run_createrepo(folder, createrepo_cmd=None):
     os.chdir(folder)
     createrepo_cmd = createrepo_cmd or 'createrepo'
     LOG.info('Run %s on %s', createrepo_cmd, os.getcwd())
+    LOGFILE.info('Run %s on %s', createrepo_cmd, os.getcwd())
     cmd = [createrepo_cmd, '.']
     LOG.debug('  Calling  : `%s` from %s', cmd, folder)
     subprocess.call(' '.join(cmd), shell=True)
