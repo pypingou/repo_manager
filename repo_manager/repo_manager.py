@@ -354,6 +354,14 @@ def ugrade_rpm(rpm, folder_from, folder_to,
 def run_createrepo(folder, createrepo_cmd=None):
     ''' Run the ``createrepo`` command in the specified folder.
     '''
+     # Check destination
+    if not os.path.exists(folder):
+        print 'Folder "%s" does not exist' % folder
+        return
+    elif not os.path.isdir(folder):
+        print '"%s" is not a folder' % folder
+        return
+
     LOG.debug('run_createrepo')
     cur_wd = os.getcwd()
     os.chdir(folder)
