@@ -94,7 +94,7 @@ def _get_keep(args):
                 repo = repo.strip()
                 if CONFIG.has_section(repo) and \
                         CONFIG.has_option(repo, 'keep'):
-                    repos.append(CONFIG.get(repo, 'keep'))
+                    keeps.append(CONFIG.get(repo, 'keep'))
     return keeps
 
 
