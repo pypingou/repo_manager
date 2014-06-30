@@ -33,9 +33,8 @@ logging.basicConfig(
 CSL = logging.StreamHandler()
 CSL.setLevel(logging.WARNING)
 # set a format which is simpler for console use
-FMT = logging.Formatter('%(levelname)-8s %(message)s')
 # tell the handler to use this format
-CSL.setFormatter(FMT)
+CSL.setFormatter(logging.Formatter('%(levelname)-8s %(message)s'))
 # add the handler to the root logger
 logging.getLogger('').addHandler(CSL)
 
