@@ -14,3 +14,9 @@ MANIFEST
 _build/
 pylint.out
 nosetests.xml
+
+# rsync of the infra repo
+SRPMS
+i386
+x86_64
+ppc
