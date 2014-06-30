@@ -11,10 +11,12 @@ BuildArch:      noarch
 
 BuildRequires:  python2-devel
 BuildRequires:  python-argparse
+BuildRequires:  python-setuptools
 BuildRequires:  createrepo
 
 Requires:       python2
 Requires:       python-argparse
+Requires:       python-setuptools
 Requires:       createrepo
 
 
