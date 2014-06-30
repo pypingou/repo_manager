@@ -8,8 +8,12 @@ URL:            https://github.com/pypingou/repo_manager
 Source0:        https://ambre.pingoured.fr/public/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildRequires:  python2-devel
+BuildRequires:  python-argparse
+
 Requires:       python2
+Requires:       python-argparse
 
 
 %description
