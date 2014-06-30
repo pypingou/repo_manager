@@ -229,9 +229,6 @@ def setup_parser():
         '--no-createrepo', default=False, action='store_true',
         help="Do not run createrepo on the repo")
     parser.add_argument(
-        '-v', '--verbose', action='store_true',
-        help="Gives more info about what's going on")
-    parser.add_argument(
         '--debug', action='store_true',
         help="Outputs bunches of debugging info")
     parser.add_argument(
@@ -351,10 +348,10 @@ def main():
 
     if arg.debug:
         LOG.setLevel(logging.DEBUG)
-        repo_manager.LOG.setLevel(logging.DEBUG)
-    elif arg.verbose:
-        LOG.setLevel(logging.INFO)
-        repo_manager.LOG.setLevel(logging.INFO)
+        logging.getLogger('').handlers[1].setLevel(logging.DEBUG)
+
+    # The stream logger is always at INFO
+    logging.getLogger('').handlers[0].setLevel(logging.INFO)
 
     global CONFIG
     if arg.configfile:
@@ -368,16 +365,16 @@ def main():
         if CONFIG.has_option('main', 'unique_log') \
                 and CONFIG.getboolean('main', 'unique_log'):
             # Close/Remove existing logfile
-            repo_manager.LOGFILE.handlers[0].stream.close()
-            repo_manager.LOGFILE.removeHandler(repo_manager.LOG.handlers[0])
+            repo_manager.LOG.handlers[0].stream.close()
+            repo_manager.LOG.removeHandler(repo_manager.LOG.handlers[0])
 
-        if not repo_manager.LOGFILE.handlers \
-                or repo_manager.LOGFILE.handlers[0].baseFilename != log_file:
+        if not repo_manager.LOG.handlers \
+                or repo_manager.LOG.handlers[0].baseFilename != log_file:
             # Create new logfile
             repo_manager.HDLER = logging.FileHandler(log_file)
             repo_manager.HDLER.setFormatter(repo_manager.FORMATTER)
             repo_manager.HDLER.setLevel(logging.INFO)
-            repo_manager.LOGFILE.addHandler(repo_manager.HDLER)
+            repo_manager.LOG.addHandler(repo_manager.HDLER)
 
     return_code = 0
 
