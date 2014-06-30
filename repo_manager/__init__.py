@@ -17,7 +17,7 @@
 
 import ConfigParser
 import argparse
-import itertoolsmodule
+import itertools
 import logging
 import os
 
@@ -122,7 +122,7 @@ def do_add(args):
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
-    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
+    for rpm, repo in itertools.product(args.rpms, repos):
         repo_manager.add_rpm(
             rpm, repo,
             no_createrepo=no_createrepo,
@@ -144,7 +144,7 @@ def do_clean(args):
     keeps = _get_keep(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
-    for repo, keep in itertoolsmodule.product(repos, keeps):
+    for repo, keep in itertools.product(repos, keeps):
         repo_manager.clean_repo(
             repo,
             keep=keep,
@@ -165,7 +165,7 @@ def do_delete(args):
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
-    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
+    for rpm, repo in itertools.product(args.rpms, repos):
         repo_manager.delete_rpm(
             rpm,
             repo,
@@ -186,7 +186,7 @@ def do_upgrade(args):
     repos = _get_repos(args)
     no_createrepo = _get_no_createrepo(args)
     createrepo_cmd = _get_createrepo_cmd()
-    for rpm, repo in itertoolsmodule.product(args.rpms, repos):
+    for rpm, repo in itertools.product(args.rpms, repos):
         repo_manager.ugrade_rpm(
             rpm,
             repo_from=args.repo_from,
