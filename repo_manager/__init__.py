@@ -372,7 +372,9 @@ def main():
                 or repo_manager.LOG.handlers[0].baseFilename != log_file:
             # Create new logfile
             repo_manager.HDLER = logging.FileHandler(log_file)
-            repo_manager.HDLER.setFormatter(repo_manager.FORMATTER)
+            repo_manager.HDLER.setFormatter(
+                logging.Formatter(
+                    '%(asctime)s %(levelname)-8s %(message)s'))
             repo_manager.HDLER.setLevel(logging.INFO)
             repo_manager.LOG.addHandler(repo_manager.HDLER)
 
