@@ -102,10 +102,14 @@ def do_info(args):
     ''' Return information about a repo. '''
     LOG.info("Info")
     LOG.info("repos   : {0}".format(args.repos))
+    LOG.info("keep       : {0}".format(args.keep))
     LOG.info("config  : {0}".format(args.configfile))
     repos = _get_repos(args)
+    keeps = _get_keep(args)
+    if keeps:
+        keeps = keeps[0]
     for repo in repos:
-        repo_manager.info_repo(repo)
+        repo_manager.info_repo(repo, keeps)
 
 
 def do_add(args):
