@@ -92,10 +92,10 @@ def get_rpm_version_release(rpmfile):
     ''' Return the version-release of the rpm according to its headers
     information.
     '''
-    return '%s-%s' % (
-        get_rpm_tag(rpmfile, rpm.RPMTAG_VERSION),
-        get_rpm_tag(rpmfile, rpm.RPMTAG_RELEASE),
-    )
+    vers = get_rpm_tag(rpmfile, rpm.RPMTAG_VERSION),
+    rele = get_rpm_tag(rpmfile, rpm.RPMTAG_RELEASE),
+    if vers and rele and vers[0] and rele[0]:
+        return '%s-%s' % (vers[0], rele[0])
 
 
 def get_duplicated_rpms(folder):
