@@ -339,7 +339,7 @@ def ugrade_rpm(rpm, folder_from, folder_to,
         return
 
     add_rpm(
-        rpm, folder_to,
+        path, folder_to,
         no_createrepo=no_createrepo,
         createrepo_cmd=createrepo_cmd,
         message=message)
