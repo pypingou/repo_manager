@@ -1,11 +1,11 @@
 Name:           repo_manager
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Manage your RPM repositories easily
 
 License:        GPLv3+
 URL:            https://github.com/pypingou/repo_manager
-Source0:        https://ambre.pingoured.fr/public/%{name}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/r/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -32,6 +32,8 @@ the user).
 %prep
 %setup -q
 
+sed -i -e '/^#!\//, 1d' repo_manager/__init__.py
+
 %build
 %{__python} setup.py build
 
@@ -53,5 +55,11 @@ install repo_manager.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
 
 %changelog
-* Sat Jun 28 2014 Pierre-Yves Chibon <pingou@pingoured.fr> 0.1.0-1
+* Thu Jul 17 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-3
+- Drop shebang in repo_manager/__init__.py
+
+* Wed Jul 02 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-2
+- Fix the Source0 to point to pypi
+
+* Sat Jun 28 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-1
 - First packaging effort
