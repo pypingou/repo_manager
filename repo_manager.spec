@@ -32,8 +32,6 @@ the user).
 %prep
 %setup -q
 
-sed -i -e '/^#!\//, 1d' repo_manager/__init__.py
-
 %build
 %{__python} setup.py build
 
@@ -55,6 +53,8 @@ install repo_manager.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
 
 %changelog
+- Drop the sed removing the sheband in repo_manager/__init__.py, fixed upstream
+
 * Thu Jul 17 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-3
 - Drop shebang in repo_manager/__init__.py
 
