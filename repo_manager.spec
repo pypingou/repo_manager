@@ -53,9 +53,8 @@ install repo_manager.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
 
 %changelog
-- Drop the sed removing the sheband in repo_manager/__init__.py, fixed upstream
-
 * Thu Jul 17 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-3
+- Drop the sed removing the sheband in repo_manager/__init__.py, fixed upstream
 - Drop shebang in repo_manager/__init__.py
 
 * Wed Jul 02 2014 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.0-2
