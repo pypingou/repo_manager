@@ -316,13 +316,6 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
         createrepo_cmd=createrepo_cmd,
         message=message)
 
-    delete_rpm(
-        rpm, folder_from,
-        no_createrepo=no_createrepo,
-        createrepo_cmd=createrepo_cmd,
-        message=message)
-        
-
 def ugrade_rpm(rpm, folder_from, folder_to,
                no_createrepo=False, createrepo_cmd=None, message=None):
     ''' Upgrade/copy the specified RPM from one repo into another one.
