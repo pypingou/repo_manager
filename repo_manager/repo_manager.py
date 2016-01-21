@@ -304,13 +304,17 @@ def replace_rpm(rpm, folder, no_createrepo=False, createrepo_cmd=None,
     if '/' in rpm:
         rpmfile = rpm.rsplit('/', 1)[1]
 
-    delete_rpm(rpmfile, folder, message=message)
-    if not no_createrepo:
-        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
-    add_rpm(rpm, folder, message=message)
-    if not no_createrepo:
-        run_createrepo(folder, createrepo_cmd=createrepo_cmd)
-
+    delete_rpm(
+        rpm, folder_from,
+        no_createrepo=no_createrepo,
+        createrepo_cmd=createrepo_cmd,
+        message=message)
+        
+    add_rpm(
+        path, folder_to,
+        no_createrepo=no_createrepo,
+        createrepo_cmd=createrepo_cmd,
+        message=message)
 
 def ugrade_rpm(rpm, folder_from, folder_to,
                no_createrepo=False, createrepo_cmd=None, message=None):
